@@ -11,4 +11,12 @@ class MovieRepo {
   Stream<Result> getListMovie(HomeCategory category) {
     return Stream.fromFuture(service.getListMovie(category));
   }
+
+  Stream<Result> detailMovie(int movieId) {
+    return Stream.fromFuture(service.detailMovie(movieId));
+  }
+
+  Stream<Result> creditMovie(int movieId) {
+    return Stream.fromFuture(service.creditMovie(movieId));
+  }
 }

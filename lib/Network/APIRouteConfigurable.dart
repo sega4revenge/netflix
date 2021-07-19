@@ -30,12 +30,12 @@ extension APIMethodExt on APIMethod {
   }
 }
 
-@immutable
-abstract class Target {
-  Map<String, dynamic>? routeParams();
-  String path();
-  APIMethod method();
-  bool isQueryParams();
+class Target {
+  Map<String, dynamic>? routeParams;
+  String path;
+  APIMethod method;
+
+  Target(this.routeParams, this.path, this.method);
 }
 
 class Router implements APIRouteConfigurable {
@@ -46,17 +46,17 @@ class Router implements APIRouteConfigurable {
 
   @override
   RequestOptions getConfig() {
-    if (target.isQueryParams()) {
+    if (target.method == APIMethod.get) {
       return RequestOptions(
-          path: target.path(),
-          method: target.method().methodString(),
-          queryParameters: target.routeParams()
+          path: target.path,
+          method: target.method.methodString(),
+          queryParameters: target.routeParams
       );
     } else {
       return RequestOptions(
-          path: target.path(),
-          method: target.method().methodString(),
-          data: target.routeParams()
+          path: target.path,
+          method: target.method.methodString(),
+          data: target.routeParams
       );
     }
   }

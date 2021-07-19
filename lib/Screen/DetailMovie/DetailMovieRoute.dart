@@ -3,6 +3,6 @@ import 'package:netflix/Model/Movie.dart';
 
 class DetailMovieRoute extends BaseRoute {
   static const String routeId = "DetailMovieRoute";
-  final Movie movie;
-  DetailMovieRoute(this.movie);
+  final int? movieId;
+  DetailMovieRoute(this.movieId);
 }

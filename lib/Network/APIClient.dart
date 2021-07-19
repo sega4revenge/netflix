@@ -62,6 +62,10 @@ class APIClient implements BaseAPIClient {
         }
       } on DioError catch (e) {
         final responseData = e.response?.data;
+        final error = ErrorResponse(
+            message: e.message, statusCode: 999
+        );
+        return Result.error(error);
         ResponseWrapper responseWrapper = configResponse(create == null ? null : create as Create<Decodable>, responseData);
         if (null is T) {
           final error = ErrorResponse(

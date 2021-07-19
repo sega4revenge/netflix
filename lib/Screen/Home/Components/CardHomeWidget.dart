@@ -1,4 +1,5 @@
-import 'dart:ffi';
+
+
 
 import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:netflix/Config/ConfigBase.dart';
 import 'package:netflix/Config/FontConfig.dart';
 import 'package:netflix/Model/Movie.dart';
+import 'package:netflix/Screen/DetailMovie/DetailMovieRoute.dart';
+import 'package:netflix/Screen/DetailMovie/DetailMovieScreen.dart';
 import 'dart:math' as math;
 import 'package:provider/provider.dart';
 import 'package:netflix/Screen/Home/HomeState.dart';
@@ -80,7 +83,7 @@ class MovieCarousel extends StatefulWidget {
 class _MovieCarouselState extends State<MovieCarousel> {
   PageController _pageController = PageController(
     // so that we can have small portion shown on left and right side
-    viewportFraction: 0.75,
+    viewportFraction: 0.20,
     // by default our movie poster
     initialPage: 0,
   );
@@ -88,11 +91,6 @@ class _MovieCarouselState extends State<MovieCarousel> {
   @override
   void didChangeDependencies() {
     final bloc = Provider.of<HomeBloc>(context);
-    bloc.movieSelectedIndex.listen((index) {
-      try {
-        _pageController.jumpToPage(index);
-      } catch (e) {}
-    });
     super.didChangeDependencies();
   }
 
@@ -105,9 +103,12 @@ class _MovieCarouselState extends State<MovieCarousel> {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<HomeBloc>(context);
+    _pageController = PageController(
+      // so that we can have small portion shown on left and right side
+      viewportFraction: 0.75
+    );
     return StreamBuilder(
-        stream: Rx.combineLatest2(bloc.listMovie, bloc.movieSelectedIndex,
-            (listMovie, movieSelectedIndex) => Void),
+        stream: bloc.listMovie,
         builder: (context, stateData) {
           var listMovie = bloc.listMovie.value;
           if (listMovie.isNotEmpty) {
@@ -120,7 +121,6 @@ class _MovieCarouselState extends State<MovieCarousel> {
                   controller: _pageController,
                   physics: ClampingScrollPhysics(),
                   itemCount: listMovie.length,
-                  // we have 3 demo movies
                   itemBuilder: (context, index) => buildMovieSlider(
                         listMovie,
                         index,
@@ -143,7 +143,17 @@ class _MovieCarouselState extends State<MovieCarousel> {
             opacity: 1,
             child: Transform.rotate(
               angle: 0,
-              child: MovieCard(movie: listMovie[index]),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    DetailMovieRoute.routeId,
+                    arguments: DetailMovieRoute(listMovie[index].id),
+                  );
+                },
+                child: MovieCard(movie: listMovie[index]),
+              )
+              ,
             ),
           );
         },

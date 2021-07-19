@@ -26,3 +26,11 @@ extension NullSafeBlock<T> on T? {
     }
   }
 }
+
+class ColorConstant {
+  static const TEXT_LIGHT = Colors.black;
+  static const ADULT_COLOR = Colors.red;
+  static const CHILD_COLOR = Colors.green;
+  static const MAIN_COLOR = Colors.red;
+
+}

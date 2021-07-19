@@ -54,7 +54,9 @@ class HomeBloc extends BaseBloc {
       movieSelectedIndex.add(0);
       return GetListMovieMessage(response.data!);
     } else  {
-      var error = result as ErrorState;
+      var error = _result as ErrorState;
+      print("loi day ne");
+      print(error.error.statusCode);
       return HomeErrorMessage(error.error);
     }
   }

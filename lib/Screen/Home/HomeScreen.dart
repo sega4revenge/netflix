@@ -16,6 +16,9 @@ class HomeScreen extends StatelessWidget {
 
   AppBar buildAppBar() {
     return AppBar(
+      iconTheme: IconThemeData(
+        color: Colors.white, //change your color here
+      ),
       automaticallyImplyLeading: true,
       backgroundColor: Colors.white,
       elevation: 0,

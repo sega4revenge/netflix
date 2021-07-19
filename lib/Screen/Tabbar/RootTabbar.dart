@@ -30,9 +30,30 @@ class _RootTabbarState extends State<RootTabbar> {
         ],
         child: HomeScreen(),
       ),
-      MyHomePage(title: '123'),
-      MyHomePage(title: '456'),
-      MyHomePage(title: '4215656')
+      MultiProvider(
+        providers: [
+          Provider<HomeBloc>(
+              create: (_) => HomeBloc(movieRepo),
+              dispose: (_, bloc) => bloc.dispose()),
+        ],
+        child: Container(),
+      ),
+      MultiProvider(
+        providers: [
+          Provider<HomeBloc>(
+              create: (_) => HomeBloc(movieRepo),
+              dispose: (_, bloc) => bloc.dispose()),
+        ],
+        child: Container(),
+      ),
+      MultiProvider(
+        providers: [
+          Provider<HomeBloc>(
+              create: (_) => HomeBloc(movieRepo),
+              dispose: (_, bloc) => bloc.dispose()),
+        ],
+        child: Container(),
+      ),
     ];
   }
 
@@ -57,13 +78,13 @@ class _RootTabbarState extends State<RootTabbar> {
                 BottomNavyBarItem(
                   icon: Icon(Icons.home),
                   title: Text('Home'),
-                  activeColor: Colors.red,
+                  activeColor: ColorConstant.MAIN_COLOR,
                   textAlign: TextAlign.center,
                 ),
                 BottomNavyBarItem(
                   icon: Icon(Icons.apps),
                   title: Text('Category'),
-                  activeColor: Colors.red,
+                  activeColor: ColorConstant.MAIN_COLOR,
                   textAlign: TextAlign.center,
                 ),
                 BottomNavyBarItem(
@@ -71,13 +92,13 @@ class _RootTabbarState extends State<RootTabbar> {
                   title: Text(
                     'Favorite',
                   ),
-                  activeColor: Colors.red,
+                  activeColor: ColorConstant.MAIN_COLOR,
                   textAlign: TextAlign.center,
                 ),
                 BottomNavyBarItem(
                   icon: Icon(Icons.settings),
                   title: Text('Settings'),
-                  activeColor: Colors.red,
+                  activeColor: ColorConstant.MAIN_COLOR,
                   textAlign: TextAlign.center,
                 ),
               ],
